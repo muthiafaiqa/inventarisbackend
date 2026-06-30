@@ -1,0 +1,37 @@
+@baseUrl = http://localhost:3000/api
+
+### 1. POST Sukses (201) - Membuat Transaksi Baru
+# Catatan: Pastikan Anda telah membuat produk terlebih dahulu dan mendapatkan ID produknya dari GET /api/products.
+# Ganti productId di bawah dengan ID produk yang valid dari database Anda.
+POST {{baseUrl}}/transactions
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "productId": "ganti-dengan-uuid-produk-dari-db",
+      "quantity": 2
+    }
+  ]
+}
+
+###
+
+### 2. POST Gagal (400) - Gagal Validasi Zod (Quantity negatif)
+POST {{baseUrl}}/transactions
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "productId": "ganti-dengan-uuid-produk-dari-db",
+      "quantity": -5
+    }
+  ]
+}
+
+###
+
+### 3. GET Semua Transaksi (200) - Mengambil Daftar Riwayat Transaksi Penjualan
+GET {{baseUrl}}/transactions
+Accept: application/json

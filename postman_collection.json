@@ -1,0 +1,109 @@
+{
+  "info": {
+    "_postman_id": "4e1a067a-59b8-4d51-a96d-318e47bf5041",
+    "name": "Inventory System Monolith POS",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Inventory",
+      "item": [
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"PROD-001\",\n  \"nama\": \"Kopi Susu Gula Aren\",\n  \"harga\": 18000,\n  \"unit\": \"cup\",\n  \"minStock\": 10\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sales",
+      "item": [
+        {
+          "name": "Create Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"ganti-dengan-uuid-product\",\n      \"quantity\": 2\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/transactions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "transactions"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Forecasting",
+      "item": [
+        {
+          "name": "Predict Product Stock",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/forecasting/predict/:productId?period=monthly",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "forecasting",
+                "predict",
+                ":productId"
+              ],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "monthly"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "productId",
+                  "value": "ganti-dengan-uuid-product"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

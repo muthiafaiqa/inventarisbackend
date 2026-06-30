@@ -1,0 +1,47 @@
+@baseUrl = http://localhost:3000/api
+
+### 1. POST Sukses (201) - Membuat Produk Baru
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "sku": "PROD-001",
+  "nama": "Kopi Susu Gula Aren",
+  "harga": 18000,
+  "unit": "cup",
+  "minStock": 10
+}
+
+###
+
+### 2. POST Gagal (400) - Gagal Validasi Zod (Harga negatif & SKU terlalu pendek)
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "sku": "PR",
+  "nama": "Espresso Shot",
+  "harga": -5000,
+  "unit": "cup",
+  "minStock": -1
+}
+
+###
+
+### 3. POST Gagal (409) - Gagal karena SKU Duplikat
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "sku": "PROD-001",
+  "nama": "Kopi Susu Vanilla",
+  "harga": 20000,
+  "unit": "cup",
+  "minStock": 5
+}
+
+###
+
+### 4. GET Semua Produk (200) - Mengambil Daftar Produk
+GET {{baseUrl}}/products
+Accept: application/json

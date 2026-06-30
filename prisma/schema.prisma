@@ -1,0 +1,79 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+/// Model untuk Admin / Pengguna Sistem
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String   @unique @db.VarChar(255)
+  password  String   @db.VarChar(255)
+  nama      String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@map("users")
+}
+
+/// Model untuk entitas Barang / Produk
+model Product {
+  id               String            @id @default(uuid()) @db.Uuid
+  sku              String            @unique @db.VarChar(100)
+  nama             String            @db.VarChar(255)
+  harga            Int               @db.Integer // Harga dasar dalam Rupiah
+  unit             String            @db.VarChar(50) // Misal: 'pcs', 'box', 'kg'
+  minStock         Int               @map("min_stock") @db.Integer // Batas minimum stok
+  createdAt        DateTime          @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt        DateTime          @updatedAt @map("updated_at") @db.Timestamptz
+  stockMovements   StockMovement[]
+  transactionItems TransactionItem[]
+
+  @@map("products")
+}
+
+enum StockMovementType {
+  IN
+  OUT
+  ADJUSTMENT
+}
+
+/// Model untuk mencatat riwayat keluar-masuk stok barang
+model StockMovement {
+  id        String            @id @default(uuid()) @db.Uuid
+  productId String            @map("product_id") @db.Uuid
+  quantity  Int               @db.Integer // Jumlah barang (positif untuk masuk, negatif untuk keluar)
+  type      StockMovementType // Jenis pergerakan: IN, OUT, atau ADJUSTMENT
+  createdAt DateTime          @default(now()) @map("created_at") @db.Timestamptz
+  product   Product           @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("stock_movements")
+}
+
+/// Model untuk Header Transaksi Penjualan
+model Transaction {
+  id          String            @id @default(uuid()) @db.Uuid
+  totalAmount Int               @map("total_amount") @db.Integer // Total nilai transaksi dalam Rupiah
+  tanggal     DateTime          @default(now()) @db.Timestamptz
+  items       TransactionItem[]
+
+  @@map("transactions")
+}
+
+/// Model untuk Detail Item Transaksi Penjualan (Snapshot)
+model TransactionItem {
+  id            String      @id @default(uuid()) @db.Uuid
+  transactionId String      @map("transaction_id") @db.Uuid
+  productId     String?     @map("product_id") @db.Uuid // Nullable agar riwayat transaksi aman jika produk dihapus
+  namaProduk    String      @map("nama_produk") @db.VarChar(255) // Snapshot nama produk saat transaksi terjadi
+  hargaSatuan   Int         @map("harga_satuan") @db.Integer // Snapshot harga satuan saat transaksi terjadi
+  quantity      Int         @db.Integer
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  product       Product?    @relation(fields: [productId], references: [id], onDelete: SetNull) // Menjaga integritas data historis
+
+  @@map("transaction_items")
+}

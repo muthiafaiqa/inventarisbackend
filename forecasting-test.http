@@ -1,0 +1,19 @@
+@baseUrl = http://localhost:3000/api
+
+### 1. GET Peramalan Stok (200) - Menghitung Peramalan Stok Produk
+# Catatan: Pastikan Anda telah membuat produk terlebih dahulu dan memiliki data transaksi penjualan produk tersebut.
+# Ganti productId di bawah dengan ID produk yang valid dari database Anda.
+GET {{baseUrl}}/forecasting/predict/ganti-dengan-uuid-produk-dari-db?period=monthly
+Accept: application/json
+
+###
+
+### 2. GET Peramalan Stok Gagal (404) - Produk Tidak Ditemukan
+GET {{baseUrl}}/forecasting/predict/00000000-0000-0000-0000-000000000000
+Accept: application/json
+
+###
+
+### 3. GET Peramalan Stok Gagal (400) - ID Produk tidak valid (Bukan UUID)
+GET {{baseUrl}}/forecasting/predict/invalid-uuid
+Accept: application/json
