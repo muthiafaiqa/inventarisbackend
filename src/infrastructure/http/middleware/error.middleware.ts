@@ -13,9 +13,17 @@ export function errorMiddleware(err: unknown, req: any, res: Response, next: Nex
       console.warn(`[BusinessError] ${err.code}: ${err.message}`);
     }
 
+    const errors = [
+      {
+        path: err.code === "USER_ALREADY_EXISTS" ? "body.email" : "message",
+        message: err.message,
+      }
+    ];
+
     res.status(err.statusCode).json({
       code: err.code,
       message: err.message,
+      errors,
     });
     return;
   }

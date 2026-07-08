@@ -49,6 +49,7 @@ app.post(
 
 app.get(
   "/api/products",
+  authMiddleware,
   ProductController.getAll
 );
 

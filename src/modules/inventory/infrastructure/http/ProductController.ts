@@ -26,11 +26,15 @@ export class ProductController {
         message: "Product created successfully",
         data: {
           id: product.id,
+          productId: product.id,
           sku: product.sku,
           nama: product.name,
+          name: product.name,
           harga: product.price,
+          price: product.price,
           unit: product.unit,
           minStock: product.minStock,
+          currentStock: 0,
           createdAt: product.createdAt,
           updatedAt: product.updatedAt,
         },
@@ -45,16 +49,27 @@ export class ProductController {
       const useCase = container.resolve<GetAllProducts>(TOKENS.GetAllProducts);
       const products = await useCase.execute();
 
-      const mapped = products.map((product) => ({
-        id: product.id,
-        sku: product.sku,
-        nama: product.name,
-        harga: product.price,
-        unit: product.unit,
-        minStock: product.minStock,
-        createdAt: product.createdAt,
-        updatedAt: product.updatedAt,
-      }));
+      const inventoryPublicApi = container.resolve<any>(TOKENS.InventoryPublicApi);
+      const stocks = await inventoryPublicApi.getAllProductsStock();
+
+      const mapped = products.map((product) => {
+        const stockData = stocks.find((s: any) => s.productId === product.id);
+        const currentStock = stockData ? stockData.currentStock : 0;
+        return {
+          id: product.id,
+          productId: product.id,
+          sku: product.sku,
+          nama: product.name,
+          name: product.name,
+          harga: product.price,
+          price: product.price,
+          unit: product.unit,
+          minStock: product.minStock,
+          currentStock,
+          createdAt: product.createdAt,
+          updatedAt: product.updatedAt,
+        };
+      });
 
       res.status(200).json({
         success: true,
@@ -85,9 +100,12 @@ export class ProductController {
         message: "Product updated successfully",
         data: {
           id: product.id,
+          productId: product.id,
           sku: product.sku,
           nama: product.name,
+          name: product.name,
           harga: product.price,
+          price: product.price,
           unit: product.unit,
           minStock: product.minStock,
           createdAt: product.createdAt,
