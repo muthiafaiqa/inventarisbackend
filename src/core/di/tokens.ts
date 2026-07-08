@@ -11,4 +11,8 @@ export const TOKENS = {
   AddStock: Symbol.for("AddStock"),
   UpdateProduct: Symbol.for("UpdateProduct"),
   DeleteProduct: Symbol.for("DeleteProduct"),
+  UserRepository: Symbol.for("UserRepository"),
+  AuthService: Symbol.for("AuthService"),
+  RegisterUser: Symbol.for("RegisterUser"),
+  LoginUser: Symbol.for("LoginUser"),
 };
