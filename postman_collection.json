@@ -125,7 +125,21 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Successful Product Creation",
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Product created successfully\",\n  \"data\": {\n    \"id\": \"0eff732a-9317-493e-a0fd-935fbc3d1666\",\n    \"productId\": \"0eff732a-9317-493e-a0fd-935fbc3d1666\",\n    \"product_id\": \"0eff732a-9317-493e-a0fd-935fbc3d1666\",\n    \"sku\": \"PROD-KOPI-001\",\n    \"nama\": \"Kopi Susu Gula Aren\",\n    \"harga\": 18000,\n    \"unit\": \"cup\",\n    \"minStock\": 10,\n    \"currentStock\": 0,\n    \"createdAt\": \"2026-07-08T10:10:00.000Z\",\n    \"updatedAt\": \"2026-07-08T10:10:00.000Z\"\n  }\n}"
+            }
+          ]
         },
         {
           "name": "Get All Products",
@@ -142,7 +156,21 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Successful Product List Retrieval",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"0eff732a-9317-493e-a0fd-935fbc3d1666\",\n      \"productId\": \"0eff732a-9317-493e-a0fd-935fbc3d1666\",\n      \"product_id\": \"0eff732a-9317-493e-a0fd-935fbc3d1666\",\n      \"sku\": \"PROD-KOPI-001\",\n      \"nama\": \"Kopi Susu Gula Aren\",\n      \"name\": \"Kopi Susu Gula Aren\",\n      \"harga\": 18000,\n      \"price\": 18000,\n      \"unit\": \"cup\",\n      \"minStock\": 10,\n      \"currentStock\": 50,\n      \"createdAt\": \"2026-07-08T10:10:00.000Z\",\n      \"updatedAt\": \"2026-07-08T10:10:00.000Z\"\n    }\n  ]\n}"
+            }
+          ]
         },
         {
           "name": "Update Product",
