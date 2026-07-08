@@ -12,7 +12,14 @@ export class AuthService implements IAuthService {
   }
 
   async comparePassword(password: string, hash: string): Promise<boolean> {
-    return bcrypt.compare(password, hash);
+    if (!hash.startsWith("$2b$") && !hash.startsWith("$2a$")) {
+      return password === hash;
+    }
+    try {
+      return await bcrypt.compare(password, hash);
+    } catch {
+      return false;
+    }
   }
 
   generateToken(payload: { userId: string; email: string }): string {
