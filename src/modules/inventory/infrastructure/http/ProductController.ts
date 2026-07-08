@@ -27,6 +27,7 @@ export class ProductController {
         data: {
           id: product.id,
           productId: product.id,
+          product_id: product.id,
           sku: product.sku,
           nama: product.name,
           name: product.name,
@@ -58,6 +59,7 @@ export class ProductController {
         return {
           id: product.id,
           productId: product.id,
+          product_id: product.id,
           sku: product.sku,
           nama: product.name,
           name: product.name,
@@ -101,6 +103,7 @@ export class ProductController {
         data: {
           id: product.id,
           productId: product.id,
+          product_id: product.id,
           sku: product.sku,
           nama: product.name,
           name: product.name,

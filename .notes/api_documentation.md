@@ -98,6 +98,8 @@ Add a new product profile to the master catalog.
       "success": true,
       "data": {
         "id": "0eff732a-9317-493e-a0fd-935fbc3d1666",
+        "productId": "0eff732a-9317-493e-a0fd-935fbc3d1666",
+        "product_id": "0eff732a-9317-493e-a0fd-935fbc3d1666",
         "sku": "KBL-NYM-215-SP",
         "nama": "Kabel NYM 2x1.5mm Supreme (50 Meter)",
         "harga": 300000,
@@ -120,7 +122,9 @@ Retrieve all products along with their real-time calculated stock quantities.
       "success": true,
       "data": [
         {
+          "id": "0eff732a-9317-493e-a0fd-935fbc3d1666",
           "productId": "0eff732a-9317-493e-a0fd-935fbc3d1666",
+          "product_id": "0eff732a-9317-493e-a0fd-935fbc3d1666",
           "sku": "KBL-NYM-215-SP",
           "name": "Kabel NYM 2x1.5mm Supreme (50 Meter)",
           "price": 300000,
@@ -152,6 +156,8 @@ Modify attributes of an existing product.
       "success": true,
       "data": {
         "id": "0eff732a-9317-493e-a0fd-935fbc3d1666",
+        "productId": "0eff732a-9317-493e-a0fd-935fbc3d1666",
+        "product_id": "0eff732a-9317-493e-a0fd-935fbc3d1666",
         "sku": "KBL-NYM-215-SP",
         "nama": "Kabel NYM 2x1.5mm Supreme (50 Meter) Premium",
         "harga": 320000,
